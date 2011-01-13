@@ -52,14 +52,13 @@ set tabstop=4 " tabs are at the propper location
 set shiftwidth=4 " indenting is 4 spaces - we aint gona use this...
 set cindent " stricter rules for C programs
 set autoindent " automatic indentation
-"set smartindent " does the right thing (mostly) in programs
+set smartindent " does the right thing (mostly) in programs
 "set expandtab " replaces tab charactes by spaces
-set nosmartindent " or maybe not
 set nosmarttab " tab by using space
 set noexpandtab " why the hell would i want space instead of tabs
 
 " cool stuff
-colorscheme molokai " color scheme pack installed, see ~/.vim/colors
+colorscheme devbox-dark-256 " color scheme pack installed, see ~/.vim/colors
 filetype on
 filetype plugin on
 
@@ -100,7 +99,7 @@ map <F3> :NERDTreeToggle<CR>
 map <F4> :TlistToggle<CR>
 map <F5> :s/^\(.*\)$/\/\/ \1/g<CR>:nohlsearch<CR>
 map <F6> :s/^\/\/ //g<CR>:nohlsearch<CR>
-map <F12> :!cscope -qRb<CR>:!ctags -R .<CR>:cscope kill 0<CR>:cscope add cscope.out<CR>
+map <F12> :!cscope -qRb<CR>:!ctags -R .<CR>:cscope reset<CR>
 
 " plugin settings
 let g:Tlist_Sort_Type='name'
@@ -114,6 +113,7 @@ let g:Tlist_Show_One_File=0
 let g:Tlist_WinWidth=40
 let g:Tlist_Enable_Fold_Column=0
 
+let g:NERDTreeShowBookmarks=1
 let g:NERDTreeChDirMode=0
 let g:NERDTreeWinSize=40
 let g:NERDTreeWinPos="left"
