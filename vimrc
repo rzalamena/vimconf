@@ -3,53 +3,18 @@
 set nocompatible
 set backspace=indent,eol,start
 
-" enconding stuff
-"set termencoding=utf8
-"set encoding=utf8
-"try
-"	lang en_US
-"	catch
-"endtry
-"
-" or
-"
-"set termencoding=iso-8859-1
-"set encoding=iso-8859-1
-
 " spelling stuff
 set nospell
 set spl=pt_br
 set ve=block
-
-" aliases latex
-ia ~a \~{a}
-ia 'a \'{a}
-ia `a \`{a}
-ia ^a \^{a}
-ia ~e \~{e}
-ia 'e \'{e}
-ia `e \`{e}
-ia ^e \^{e}
-ia ~i \~{i}
-ia 'i \'{i}
-ia `i \`{i}
-ia ^i \^{i}
-ia ~o \~{o}
-ia 'o \'{o}
-ia `o \`{o}
-ia ^o \^{o}
-ia ~u \~{u}
-ia 'u \'{u}
-ia `u \`{u}
-ia ^u \^{u}
 
 " misc
 set title
 set ruler " always display the cursos current position
 
 " ident
-set tabstop=4 " tabs are at the propper location
-set shiftwidth=4 " indenting is 4 spaces - we aint gona use this...
+set tabstop=8 " tabs are at the propper location
+set shiftwidth=8 " indenting is 8 spaces - we aint gona use this...
 set cindent " stricter rules for C programs
 set autoindent " automatic indentation
 set smartindent " does the right thing (mostly) in programs
@@ -58,7 +23,7 @@ set nosmarttab " tab by using space
 set noexpandtab " why the hell would i want space instead of tabs
 
 " cool stuff
-colorscheme devbox-dark-256 " color scheme pack installed, see ~/.vim/colors
+colorscheme zenburn " color scheme pack installed, see ~/.vim/colors
 filetype on
 filetype plugin on
 
@@ -127,19 +92,6 @@ map <TAB>s :A<CR>
 map <TAB>n :tabn<CR>
 map <TAB>p :tabp<CR>
 inoremap <SPACE><TAB> <TAB>
-
-" Versioning commands
-map <TAB>a :VCSAdd<CR>
-map <TAB>l :VCSLog<CR>
-map <TAB>c :VCSCommit<CR>
-map <TAB>d :VCSDiff<CR>
-map <TAB>D :VCSVimDiff<CR>
-map <TAB>r :VCSRevert<CR>
-map <TAB>b :VCSBlame<CR>
-map <TAB>R :VCSRemove<CR>
-"map <TAB>s :VCSStatus<CR>
-map <TAB>i :VCSInfo<CR>
-
 
 " inoremapping, easen stuff
 " my latex stuff

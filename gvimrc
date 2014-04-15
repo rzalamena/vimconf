@@ -1,3 +1,3 @@
-set tb=
-set guifont=terminus\ bold\ 12
-set go=cf
+set gfn=xos4\ Terminus\ Bold\ 12
+set go=acegit
+colorscheme zenburn " color scheme pack installed, see ~/.vim/colors
