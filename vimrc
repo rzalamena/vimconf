@@ -26,6 +26,11 @@ call plug#end()
 set encoding=utf8
 scriptencoding utf-8
 
+" Fix console display
+if !has('gui_running')
+  set t_Co=256
+endif
+
 " Visual
 syntax enable
 set background=dark
@@ -44,11 +49,6 @@ let g:airline_detect_spell=0 " hide spell indicator
 " Patched fonts: https://github.com/powerline/fonts
 " Font Patcher: https://github.com/powerline/fontpatcher
 let g:airline_powerline_fonts=1
-
-" Fix console display
-if !has('gui_running')
-  set t_Co=256
-endif
 
 " NERDTree
 let g:NERDTreeShowBookmarks=1
