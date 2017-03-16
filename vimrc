@@ -84,7 +84,8 @@ set smarttab " figure out tab/spaces by looking around
 set noexpandtab " don't expand tab into spaces
 
 " Tab properties per language
-autocmd Filetype c setlocal expandtab tabstop=8 shiftwidth=8
+autocmd Filetype c setlocal noexpandtab tabstop=8 shiftwidth=8
+autocmd Filetype cpp setlocal noexpandtab tabstop=8 shiftwidth=8
 
 " Bindings
 map <TAB>n :tabn<CR>
