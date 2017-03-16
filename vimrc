@@ -73,6 +73,7 @@ set scrolloff=16 " show at least 16 lines of context
 " Editing
 set spell " enable spelling check
 set spelllang=en,pt " supported languages
+set spellfile=~/.vim/spell/custom.add " accepted/rejected words
 
 set tabstop=2 " tabs are at the proper location
 set shiftwidth=2 " indenting is 2 spaces
