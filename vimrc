@@ -15,6 +15,7 @@ Plug 'scrooloose/nerdtree'
 
 Plug 'elixir-lang/vim-elixir'
 Plug 'slashmili/alchemist.vim'
+Plug 'davidhalter/jedi-vim'
 
 Plug 'ctrlpvim/ctrlp.vim'
 
@@ -81,11 +82,12 @@ set cindent " stricter rules for C programs
 set autoindent " automatic indentation
 set smartindent " does the right thing (mostly) in programs
 set smarttab " figure out tab/spaces by looking around
-set noexpandtab " don't expand tab into spaces
+set expandtab " expand tab into spaces
 
 " Tab properties per language
 autocmd Filetype c setlocal noexpandtab tabstop=8 shiftwidth=8
 autocmd Filetype cpp setlocal noexpandtab tabstop=8 shiftwidth=8
+autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4
 
 " Bindings
 map <TAB>n :tabn<CR>
