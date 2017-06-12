@@ -30,12 +30,14 @@ scriptencoding utf-8
 " Fix console display
 if !has('gui_running')
   set t_Co=256
+	colorscheme default
+else
+	colorscheme pixelmuerto
 endif
 
 " Visual
 syntax enable
 set background=dark
-colorscheme pixelmuerto
 
 " Don't highlight on search, underline instead.
 highlight Search guibg=NONE guifg=NONE gui=underline
