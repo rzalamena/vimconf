@@ -39,6 +39,7 @@ endif
 " Visual
 syntax enable
 set background=dark
+set cursorline
 
 " Don't highlight on search, underline instead.
 highlight Search guibg=NONE guifg=NONE gui=underline
@@ -88,8 +89,10 @@ set smarttab " figure out tab/spaces by looking around
 set expandtab " expand tab into spaces
 
 " Tab properties per language
-autocmd Filetype c setlocal noexpandtab tabstop=8 shiftwidth=8
-autocmd Filetype cpp setlocal noexpandtab tabstop=8 shiftwidth=8
+autocmd Filetype c setlocal noexpandtab tabstop=8 shiftwidth=8 colorcolumn=80
+autocmd Filetype cpp setlocal noexpandtab tabstop=8 shiftwidth=8 colorcolumn=80
+autocmd Filetype lex setlocal noexpandtab tabstop=8 shiftwidth=8 colorcolumn=80
+autocmd Filetype yacc setlocal noexpandtab tabstop=8 shiftwidth=8 colorcolumn=80
 autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4
 
 " Bindings
