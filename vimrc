@@ -17,6 +17,7 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'slashmili/alchemist.vim'
 Plug 'davidhalter/jedi-vim'
 
+Plug 'tpope/vim-surround'
 Plug 'ctrlpvim/ctrlp.vim'
 
 " Initialize plugin system
