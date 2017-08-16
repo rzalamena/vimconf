@@ -2,6 +2,10 @@
 "
 " Author: Rafael Zalamena <rzalamena at gmail dot com>
 
+" Detect async support
+" Trick copied from: https://github.com/thoughtbot/dotfiles/blob/master/vimrc.bundles
+let g:has_async = v:version >= 800 || has('nvim')
+
 " === PLUGINS BEGIN ===
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.vim/plugged')
@@ -23,9 +27,41 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
+if g:has_async
+  Plug 'w0rp/ale'
+endif
+
 " Initialize plugin system
 call plug#end()
 " === PLUGINS END ===
+
+" Recover buffer position and Ale linting support
+augroup vimrcEx
+  autocmd!
+
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it for commit messages, when the position is invalid, or when
+  " inside an event handler (happens when dropping a file on gvim).
+  autocmd BufReadPost *
+    \ if &ft != 'gitcommit' && line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal g`\"" |
+    \ endif
+
+  " Set syntax highlighting for specific file types
+  autocmd BufRead,BufNewFile *.md set filetype=markdown
+
+  " ALE linting events
+  if g:has_async
+    set updatetime=1000
+    let g:ale_lint_on_text_changed = 0
+    autocmd CursorHold * call ale#Lint()
+    autocmd CursorHoldI * call ale#Lint()
+    autocmd InsertEnter * call ale#Lint()
+    autocmd InsertLeave * call ale#Lint()
+  else
+    echoerr "ale requires async to work"
+  endif
+augroup END
 
 " Add UTF-8 support
 set encoding=utf8
