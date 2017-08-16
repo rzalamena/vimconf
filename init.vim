@@ -43,6 +43,10 @@ endif
 syntax enable
 set background=dark
 set cursorline
+set list
+set listchars=tab:»·,trail:·,nbsp:·
+set number
+set numberwidth=5
 
 " Don't highlight on search, underline instead.
 highlight Search guibg=NONE guifg=NONE gui=underline
@@ -70,7 +74,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " UI
 set showtabline=2 " show tabs
 set tabpagemax=100 " bump tab limit
-set wildmode=longest,list:full " menu behaviour
+set wildmode=list:longest,list:full " menu behaviour
 set textwidth=72 " amount of text before breaking line
 
 set incsearch " search as we type
