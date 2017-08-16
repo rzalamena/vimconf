@@ -20,6 +20,9 @@ Plug 'davidhalter/jedi-vim'
 Plug 'tpope/vim-surround'
 Plug 'ctrlpvim/ctrlp.vim'
 
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
 " Initialize plugin system
 call plug#end()
 " === PLUGINS END ===
@@ -58,6 +61,11 @@ let g:airline_powerline_fonts=1
 " NERDTree
 let g:NERDTreeShowBookmarks=1
 let g:NERDTreeWinPos='left'
+
+" Snippets
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " UI
 set showtabline=2 " show tabs
