@@ -19,13 +19,12 @@ Plug 'scrooloose/nerdtree'
 
 Plug 'elixir-lang/vim-elixir'
 Plug 'slashmili/alchemist.vim'
-Plug 'davidhalter/jedi-vim'
+Plug 'avdgaag/vim-phoenix'
 
 Plug 'tpope/vim-surround'
 Plug 'ctrlpvim/ctrlp.vim'
 
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+Plug 'Valloric/YouCompleteMe'
 
 if g:has_async
   Plug 'w0rp/ale'
@@ -96,7 +95,7 @@ let g:airline_detect_spell=0 " hide spell indicator
 " Requires patched powerline fonts installed:
 " Patched fonts: https://github.com/powerline/fonts
 " Font Patcher: https://github.com/powerline/fontpatcher
-let g:airline_powerline_fonts=1
+let g:airline_powerline_fonts=0
 
 " NERDTree
 let g:NERDTreeShowBookmarks=1

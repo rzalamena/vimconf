@@ -11,6 +11,7 @@ programming languages:
 * Markdown
 * JavaScript
 * HTML / (S)CSS
+* Python
 * Ruby
 * Lua
 
@@ -31,6 +32,10 @@ This is the list of installed plugins:
 * alchemist.vim: Elixir auto-completion and documentation display
   (press K on normal mode)
 * ctrlp.vim: allows to navigate project files with CTRL + p
+* vim-phoenix: phoenix framework related features
+* vim-surround: add/remove paranteses/quotes/html tags
+* ale: linting using system tools (see w0rp/ale repo for more info)
+* YouCompleteMe: better code completing engine
 
 Note: I'm still not using NeoVim so some plugins might not work with it.
 
@@ -41,7 +46,7 @@ your home .vim directory and create a symbolic link for vimrc.
 
 ```shell
 git clone https://github.com/rzalamena/vimconf ${HOME}/.vim
-ln -s ${HOME}/.vim/vimrc ${HOME}/.vimrc
+ln -s ${HOME}/.vim/init.vim ${HOME}/.vimrc
 ```
 
 Don't forget to install the plugins on the first run with (normal mode):
