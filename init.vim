@@ -28,8 +28,6 @@ Plug 'avdgaag/vim-phoenix'
 Plug 'tpope/vim-surround'
 Plug 'ctrlpvim/ctrlp.vim'
 
-Plug 'Valloric/YouCompleteMe'
-
 if g:has_async
   Plug 'w0rp/ale'
 endif
@@ -104,11 +102,6 @@ let g:airline_powerline_fonts=0
 " NERDTree
 let g:NERDTreeShowBookmarks=1
 let g:NERDTreeWinPos='left'
-
-" Snippets
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " UI
 set showtabline=2 " show tabs
