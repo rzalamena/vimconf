@@ -2,6 +2,10 @@
 "
 " Author: Rafael Zalamena <rzalamena at gmail dot com>
 
+" Work as vim and not vi
+set nocompatible
+set backspace=indent,eol,start
+
 " Detect async support
 " Trick copied from: https://github.com/thoughtbot/dotfiles/blob/master/vimrc.bundles
 let g:has_async = v:version >= 800 || has('nvim')
@@ -121,11 +125,15 @@ set showfulltag " show C function template
 set completeopt=menu,menuone,preview " required for previous option
 
 set scrolloff=16 " show at least 16 lines of context
+set ruler " always show cursos position
+set showcmd " always show current command
 
 " Editing
 set spell " enable spelling check
 set spelllang=en,pt " supported languages
 set spellfile=~/.vim/spell/custom.add " accepted/rejected words
+
+filetype plugin indent on
 
 set tabstop=2 " tabs are at the proper location
 set shiftwidth=2 " indenting is 2 spaces
@@ -134,6 +142,7 @@ set autoindent " automatic indentation
 set smartindent " does the right thing (mostly) in programs
 set smarttab " figure out tab/spaces by looking around
 set expandtab " expand tab into spaces
+set nobackup " disable backup files
 
 " Tab properties per language
 autocmd Filetype c setlocal noexpandtab tabstop=8 shiftwidth=8 colorcolumn=80
