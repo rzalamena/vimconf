@@ -14,7 +14,7 @@ let g:has_async = v:version >= 800 || has('nvim')
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.vim/plugged')
 
-Plug 'juanpabloaj/vim-pixelmuerto'
+Plug 'chriskempson/base16-vim'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -70,11 +70,8 @@ set encoding=utf8
 scriptencoding utf-8
 
 " Fix console display
-if !has('gui_running')
-  set t_Co=256
-	colorscheme default
-else
-	colorscheme pixelmuerto
+if has('gui_running')
+  colorscheme base16-irblack
 endif
 
 " Visual
