@@ -28,6 +28,13 @@ Plug 'avdgaag/vim-phoenix'
 Plug 'tpope/vim-surround'
 Plug 'ctrlpvim/ctrlp.vim'
 
+Plug 'airblade/vim-gitgutter'
+
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
+Plug 'Valloric/YouCompleteMe'
+
 if g:has_async
   Plug 'w0rp/ale'
 endif
@@ -81,7 +88,7 @@ set cursorline
 set list
 set listchars=tab:»·,trail:·,nbsp:·
 set number
-set numberwidth=5
+set numberwidth=4
 
 " Don't highlight on search, underline instead.
 highlight Search guibg=NONE guifg=NONE gui=underline
@@ -95,7 +102,7 @@ let g:airline_detect_spell=0 " hide spell indicator
 " Requires patched powerline fonts installed:
 " Patched fonts: https://github.com/powerline/fonts
 " Font Patcher: https://github.com/powerline/fontpatcher
-let g:airline_powerline_fonts=0
+let g:airline_powerline_fonts=1
 
 " NERDTree
 let g:NERDTreeShowBookmarks=1
@@ -106,6 +113,7 @@ set showtabline=2 " show tabs
 set tabpagemax=100 " bump tab limit
 set wildmode=list:longest,list:full " menu behaviour
 set textwidth=72 " amount of text before breaking line
+set colorcolumn=80,120 " show 80 and 120 columns
 
 set incsearch " search as we type
 set hlsearch " highlight results
@@ -148,3 +156,6 @@ map <TAB>p :tabp<CR>
 
 set pastetoggle=<F2>
 map <F3> :NERDTreeToggle<CR>
+
+" Don't use <tab> for YouCompleteMe, leave it for snippets
+let g:ycm_key_list_select_completion = []
