@@ -25,6 +25,8 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'slashmili/alchemist.vim'
 Plug 'avdgaag/vim-phoenix'
 
+Plug 'posva/vim-vue'
+
 Plug 'tpope/vim-surround'
 Plug 'ctrlpvim/ctrlp.vim'
 
