@@ -35,8 +35,6 @@ Plug 'airblade/vim-gitgutter'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
-Plug 'Valloric/YouCompleteMe'
-
 if g:has_async
   Plug 'w0rp/ale'
 endif
@@ -64,11 +62,10 @@ augroup vimrcEx
   if g:has_async
     " Lint on file save only
     let g:ale_lint_on_text_changed = 'never'
+    " Lint on buffer open
     let g:ale_lint_on_enter = 0
-    autocmd CursorHold * call ale#Lint()
-    autocmd CursorHoldI * call ale#Lint()
-    autocmd InsertEnter * call ale#Lint()
-    autocmd InsertLeave * call ale#Lint()
+    " Don't lint on save
+    let g:ale_lint_on_save = 1
   else
     echoerr "ale requires async to work"
   endif
@@ -104,7 +101,7 @@ let g:airline_detect_spell=0 " hide spell indicator
 " Requires patched powerline fonts installed:
 " Patched fonts: https://github.com/powerline/fonts
 " Font Patcher: https://github.com/powerline/fontpatcher
-let g:airline_powerline_fonts=1
+let g:airline_powerline_fonts=0
 
 " NERDTree
 let g:NERDTreeShowBookmarks=1
@@ -115,7 +112,7 @@ set showtabline=2 " show tabs
 set tabpagemax=100 " bump tab limit
 set wildmode=list:longest,list:full " menu behaviour
 set textwidth=72 " amount of text before breaking line
-set colorcolumn=80,120 " show 80 and 120 columns
+set colorcolumn=80
 
 set incsearch " search as we type
 set hlsearch " highlight results
@@ -151,6 +148,8 @@ autocmd Filetype cpp setlocal noexpandtab tabstop=8 shiftwidth=8 colorcolumn=80
 autocmd Filetype lex setlocal noexpandtab tabstop=8 shiftwidth=8 colorcolumn=80
 autocmd Filetype yacc setlocal noexpandtab tabstop=8 shiftwidth=8 colorcolumn=80
 autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4
+autocmd FileType gitcommit setlocal colorcolumn=50,80
+autocmd FileType elixir setlocal colorcolumn=120
 
 " Bindings
 map <TAB>n :tabn<CR>
