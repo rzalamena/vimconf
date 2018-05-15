@@ -7,11 +7,12 @@ set nocompatible
 set backspace=indent,eol,start
 
 " Detect async support
-" Trick copied from: https://github.com/thoughtbot/dotfiles/blob/master/vimrc.bundles
+" Trick copied from:
+" https://github.com/thoughtbot/dotfiles/blob/master/vimrc.bundles
 let g:has_async = v:version >= 800 || has('nvim')
 
 " === PLUGINS BEGIN ===
-" Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
+" Specify a directory for plugins
 call plug#begin('~/.vim/plugged')
 
 Plug 'vim-airline/vim-airline'
@@ -39,9 +40,9 @@ if g:has_async
   Plug 'w0rp/ale'
 endif
 
-" Initialize plugin system
 call plug#end()
 " === PLUGINS END ===
+
 
 " Recover buffer position and Ale linting support
 augroup vimrcEx
@@ -60,20 +61,22 @@ augroup vimrcEx
 
   " ALE linting events
   if g:has_async
-    " Lint on file save only
+    " Lint on text changes?
     let g:ale_lint_on_text_changed = 'never'
-    " Lint on buffer open
+    " Lint on buffer opening?
     let g:ale_lint_on_enter = 0
-    " Don't lint on save
+    " Lint on buffer save?
     let g:ale_lint_on_save = 1
   else
     echoerr "ale requires async to work"
   endif
 augroup END
 
+
 " Add UTF-8 support
 set encoding=utf8
 scriptencoding utf-8
+
 
 " Fix console display
 if !has('gui_running')
@@ -81,10 +84,10 @@ if !has('gui_running')
   set termguicolors
 endif
 
-colorscheme monokai
 
 " Visual
 syntax enable
+colorscheme monokai
 set background=dark
 set cursorline
 set list
@@ -145,7 +148,8 @@ set smarttab " figure out tab/spaces by looking around
 set expandtab " expand tab into spaces
 set nobackup " disable backup files
 
-" Tab properties per language
+
+" Language specific settings
 autocmd Filetype c setlocal noexpandtab tabstop=8 shiftwidth=8 colorcolumn=80
 autocmd Filetype cpp setlocal noexpandtab tabstop=8 shiftwidth=8 colorcolumn=80
 autocmd Filetype lex setlocal noexpandtab tabstop=8 shiftwidth=8 colorcolumn=80
@@ -153,6 +157,7 @@ autocmd Filetype yacc setlocal noexpandtab tabstop=8 shiftwidth=8 colorcolumn=80
 autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType gitcommit setlocal colorcolumn=50,80
 autocmd FileType elixir setlocal colorcolumn=120
+
 
 " Bindings
 map <TAB>n :tabn<CR>
