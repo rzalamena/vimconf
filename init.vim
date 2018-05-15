@@ -1,6 +1,6 @@
 " VIM configuration file
 "
-" Author: Rafael Zalamena <rzalamena at gmail dot com>
+" Author: Rafael Zalamena
 
 " Work as vim and not vi
 set nocompatible
@@ -14,10 +14,10 @@ let g:has_async = v:version >= 800 || has('nvim')
 " Specify a directory for plugins (for Neovim: ~/.local/share/nvim/plugged)
 call plug#begin('~/.vim/plugged')
 
-Plug 'chriskempson/base16-vim'
-
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+
+Plug 'crusoexia/vim-monokai'
+Plug 'Yavor-Ivanov/airline-monokai-subtle.vim'
 
 Plug 'scrooloose/nerdtree'
 
@@ -76,9 +76,12 @@ set encoding=utf8
 scriptencoding utf-8
 
 " Fix console display
-if has('gui_running')
-  colorscheme base16-irblack
+if !has('gui_running')
+  set t_Co=256
+  set termguicolors
 endif
+
+colorscheme monokai
 
 " Visual
 syntax enable
@@ -94,7 +97,7 @@ highlight Search guibg=NONE guifg=NONE gui=underline
 
 " Airline
 set laststatus=2 " always show status bar
-let g:airline_theme='base16_eighties'
+let g:airline_theme='monokai_subtle'
 let g:airline_detect_spell=0 " hide spell indicator
 
 " Show nice markings (e.g. '>').
@@ -157,6 +160,3 @@ map <TAB>p :tabp<CR>
 
 set pastetoggle=<F2>
 map <F3> :NERDTreeToggle<CR>
-
-" Don't use <tab> for YouCompleteMe, leave it for snippets
-let g:ycm_key_list_select_completion = []
