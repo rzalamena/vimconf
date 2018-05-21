@@ -17,8 +17,8 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'vim-airline/vim-airline'
 
-Plug 'crusoexia/vim-monokai'
-Plug 'Yavor-Ivanov/airline-monokai-subtle.vim'
+Plug 'ErichDonGubler/vim-sublime-monokai'
+Plug 'rcabralc/monokai-airline.vim'
 
 Plug 'scrooloose/nerdtree'
 
@@ -87,7 +87,7 @@ endif
 
 " Visual
 syntax enable
-colorscheme monokai
+colorscheme sublimemonokai
 set background=dark
 set cursorline
 set list
@@ -100,7 +100,7 @@ highlight Search guibg=NONE guifg=NONE gui=underline
 
 " Airline
 set laststatus=2 " always show status bar
-let g:airline_theme='monokai_subtle'
+let g:airline_theme='monokai'
 let g:airline_detect_spell=0 " hide spell indicator
 
 " Show nice markings (e.g. '>').
