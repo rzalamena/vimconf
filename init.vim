@@ -36,12 +36,22 @@ Plug 'airblade/vim-gitgutter'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 
+Plug 'Valloric/YouCompleteMe'
+
+Plug 'majutsushi/tagbar'
+
 if g:has_async
   Plug 'w0rp/ale'
 endif
 
 call plug#end()
 " === PLUGINS END ===
+
+
+" YouCompleteMe settings
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_key_list_select_completion = []
 
 
 " Recover buffer position and Ale linting support
@@ -166,3 +176,4 @@ map <TAB>p :tabp<CR>
 
 set pastetoggle=<F2>
 map <F3> :NERDTreeToggle<CR>
+map <F4> :TagbarToggle<CR>
