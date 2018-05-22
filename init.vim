@@ -114,7 +114,7 @@ let g:NERDTreeShowBookmarks=1
 let g:NERDTreeWinPos='left'
 
 " UI
-set showtabline=2 " show tabs
+set showtabline=1 " show tabs when multiple are available
 set tabpagemax=100 " bump tab limit
 set wildmode=list:longest,list:full " menu behaviour
 set textwidth=72 " amount of text before breaking line
