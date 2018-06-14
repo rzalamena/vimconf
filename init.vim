@@ -171,6 +171,7 @@ autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4
 autocmd FileType gitcommit setlocal colorcolumn=50,80
 autocmd FileType elixir setlocal colorcolumn=120
 autocmd FileType eelixir setlocal colorcolumn=120
+autocmd FileType perl setlocal noexpandtab tabstop=4 shiftwidth=4
 
 
 " Bindings
