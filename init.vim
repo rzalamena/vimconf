@@ -120,7 +120,7 @@ let g:airline_detect_spell=0 " hide spell indicator
 " Requires patched powerline fonts installed:
 " Patched fonts: https://github.com/powerline/fonts
 " Font Patcher: https://github.com/powerline/fontpatcher
-let g:airline_powerline_fonts=0
+let g:airline_powerline_fonts=1
 
 " NERDTree
 let g:NERDTreeShowBookmarks=1
