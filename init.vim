@@ -38,7 +38,10 @@ Plug 'honza/vim-snippets'
 
 Plug 'Valloric/YouCompleteMe'
 
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
+
+Plug 'lervag/vimtex'
 
 if g:has_async
   Plug 'w0rp/ale'
