@@ -33,15 +33,8 @@ Plug 'ctrlpvim/ctrlp.vim'
 
 Plug 'airblade/vim-gitgutter'
 
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-
-Plug 'Valloric/YouCompleteMe'
-
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
-
-Plug 'lervag/vimtex'
 
 if g:has_async
   Plug 'w0rp/ale'
@@ -49,12 +42,6 @@ endif
 
 call plug#end()
 " === PLUGINS END ===
-
-
-" YouCompleteMe settings
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_key_list_select_completion = []
 
 
 " Recover buffer position and Ale linting support
@@ -120,7 +107,7 @@ let g:airline_detect_spell=0 " hide spell indicator
 " Requires patched powerline fonts installed:
 " Patched fonts: https://github.com/powerline/fonts
 " Font Patcher: https://github.com/powerline/fontpatcher
-let g:airline_powerline_fonts=1
+let g:airline_powerline_fonts=0
 
 " NERDTree
 let g:NERDTreeShowBookmarks=1
@@ -182,3 +169,5 @@ map <TAB>p :tabp<CR>
 set pastetoggle=<F2>
 map <F3> :NERDTreeToggle<CR>
 map <F4> :TagbarToggle<CR>
+
+nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
