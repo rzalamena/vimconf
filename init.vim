@@ -19,7 +19,7 @@ if !has('gui_running')
 endif
 
 set background=dark
-colorscheme gruvbox
+colorscheme wombat
 
 " show C function template.
 set showfulltag
@@ -27,6 +27,11 @@ set showfulltag
 set completeopt=menu,menuone,preview
 " Show status bar (lightline).
 set laststatus=2
+
+" lightline tweaks.
+let g:lightline = {
+  \ 'colorscheme': 'wombat',
+  \ }
 
 
 "
