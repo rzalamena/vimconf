@@ -33,6 +33,9 @@ let g:lightline = {
   \ 'colorscheme': 'wombat',
   \ }
 
+" Show current key combinations (right bottom corner).
+set showcmd
+
 
 "
 " Editing settings.
@@ -76,3 +79,7 @@ autocmd FileType eelixir setlocal colorcolumn=120
 autocmd FileType vue setlocal colorcolumn=120
 autocmd FileType perl setlocal tabstop=4 shiftwidth=4
 autocmd FileType ruby setlocal colorcolumn=80
+"
+" Generate doc links.
+"
+silent! helptags ALL
