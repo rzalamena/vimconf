@@ -19,7 +19,7 @@ if !has('gui_running')
 endif
 
 set background=dark
-colorscheme wombat
+colorscheme one
 
 " show C function template.
 set showfulltag
@@ -30,7 +30,7 @@ set laststatus=2
 
 " lightline tweaks.
 let g:lightline = {
-  \ 'colorscheme': 'wombat',
+  \ 'colorscheme': 'one',
   \ }
 
 " Show current key combinations (right bottom corner).
