@@ -57,6 +57,9 @@ set spelllang=en,pt
 " accepted/rejected words.
 set spellfile=~/.vim/spell/custom.add
 
+" Disable modeline (security issue)
+set nomodeline
+
 
 "
 " Bindings.
