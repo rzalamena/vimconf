@@ -67,6 +67,9 @@ set spelllang=en,pt
 " accepted/rejected words.
 set spellfile=~/.vim/spell/custom.add
 
+" Use smart indentation.
+set smartindent
+
 " Disable modeline (security issue)
 set nomodeline
 
