@@ -36,6 +36,10 @@ let g:lightline = {
 " Show current key combinations (right bottom corner).
 set showcmd
 
+" Show all completion options for commands.
+set wildmenu
+set wildmode=longest:full,full
+
 
 "
 " Editing settings.
