@@ -40,6 +40,12 @@ set showcmd
 set wildmenu
 set wildmode=longest:full,full
 
+" Color parantheses differently.
+autocmd VimEnter * RainbowParenthesesToggle
+autocmd Syntax * RainbowParenthesesLoadRound
+autocmd Syntax * RainbowParenthesesLoadSquare
+autocmd Syntax * RainbowParenthesesLoadBraces
+
 
 "
 " Editing settings.
