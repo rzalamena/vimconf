@@ -87,6 +87,7 @@ map <F3> :NERDTreeToggle<CR>
 "
 " Language specifics.
 "
+filetype plugin on
 autocmd Filetype c setlocal cindent noexpandtab tabstop=8 shiftwidth=8 colorcolumn=80
 autocmd Filetype cpp setlocal cindent noexpandtab tabstop=8 shiftwidth=8 colorcolumn=80
 autocmd Filetype lex setlocal cindent noexpandtab tabstop=8 shiftwidth=8 colorcolumn=80
@@ -99,6 +100,7 @@ autocmd FileType vue setlocal colorcolumn=120
 autocmd FileType perl setlocal tabstop=4 shiftwidth=4
 autocmd FileType ruby setlocal colorcolumn=80
 
+
 "
 " Ale settings.
 "
@@ -106,6 +108,7 @@ let g:ale_lint_on_text_changed=0
 let g:ale_c_parse_makefile=1
 let g:ale_c_clang_options="-std=c99 -Wall -Wextra"
 let g:ale_c_gcc_options="-std=c99 -Wall -Wextra"
+
 
 "
 " Generate doc links.
