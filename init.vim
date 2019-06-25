@@ -46,6 +46,9 @@ autocmd Syntax * RainbowParenthesesLoadRound
 autocmd Syntax * RainbowParenthesesLoadSquare
 autocmd Syntax * RainbowParenthesesLoadBraces
 
+" Auto scroll to keep cursor away from the screen edge.
+set scrolloff=16
+
 
 "
 " Editing settings.
