@@ -27,6 +27,8 @@ set showfulltag
 set completeopt=menu,menuone,preview
 " Show status bar (lightline).
 set laststatus=2
+" Show tab bar.
+set showtabline=2
 
 " lightline tweaks.
 let g:lightline = {
