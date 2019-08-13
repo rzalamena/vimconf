@@ -41,6 +41,7 @@ set showcmd
 " Show all completion options for commands.
 set wildmenu
 set wildmode=longest:full,full
+set wildignore=*.o
 
 " Color parantheses differently.
 autocmd VimEnter * RainbowParenthesesToggle
