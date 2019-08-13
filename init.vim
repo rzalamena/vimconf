@@ -131,6 +131,7 @@ autocmd FileType perl setlocal tabstop=4 shiftwidth=4
 autocmd FileType ruby setlocal colorcolumn=80
 autocmd FileType sh setlocal expandtab tabstop=2 shiftwidth=2 colorcolumn=80
 autocmd FileType man setlocal nolist
+autocmd FileType nftables setlocal tabstop=2 shiftwidth=2 colorcolumn=80
 
 
 "
