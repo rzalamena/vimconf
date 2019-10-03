@@ -44,6 +44,10 @@ set showcmd
 set wildmenu
 set wildmode=longest:full,full
 set wildignore=*.o
+let g:ctrlp_custom_ignore = {
+  \ 'dir': '\v(\.git|node_modules|_build)$',
+  \ 'file': '\v\.o$',
+  \ }
 
 " Color parantheses differently.
 autocmd VimEnter * RainbowParenthesesToggle
