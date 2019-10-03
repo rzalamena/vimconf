@@ -118,8 +118,18 @@ autocmd FileType sh setlocal noexpandtab tabstop=8 shiftwidth=8 colorcolumn=80
 "
 let g:ale_lint_on_text_changed=0
 let g:ale_c_parse_makefile=1
-let g:ale_c_clang_options="-std=c99 -Wall -Wextra"
-let g:ale_c_gcc_options="-std=c99 -Wall -Wextra"
+
+let s:cflags  = "-std=c11 -Wall -Wextra -I."
+  \ . " -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations"
+  \ . " -Wshadow -Wpointer-arith -Wconversion -Wpacked"
+  \ . " -Wswitch-enum -Wimplicit-fallthrough"
+  \ . " -Wsuggest-attribute=const -Wsuggest-attribute=malloc -Walloc-zero"
+let g:ale_c_clang_options=s:cflags
+let g:ale_c_gcc_options=s:cflags
+
+let g:ale_linters={
+  \ 'c': ['gcc', 'clang'],
+  \ }
 
 
 "
