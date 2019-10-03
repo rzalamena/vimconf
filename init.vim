@@ -56,7 +56,8 @@ autocmd Syntax * RainbowParenthesesLoadSquare
 autocmd Syntax * RainbowParenthesesLoadBraces
 
 " Auto scroll to keep cursor away from the screen edge.
-set scrolloff=16
+" (2019-10-01) Disabled because it breaks markdown and vue syntax highlight.
+" set scrolloff=16
 
 
 "
