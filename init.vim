@@ -49,6 +49,9 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.o$',
   \ }
 
+" Disable preview window when using omnicomplete in C.
+set completeopt=menu,menuone
+
 " Color parantheses differently.
 autocmd VimEnter * RainbowParenthesesToggle
 autocmd Syntax * RainbowParenthesesLoadRound
