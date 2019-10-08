@@ -90,12 +90,23 @@ set smartindent
 " Disable modeline (security issue)
 set nomodeline
 
+" Man page reading support.
+runtime ftplugin/man.vim
+
+" Open man pages vertically.
+let g:ft_man_open_mode="vert"
+
 
 "
 " Bindings.
 "
 set pastetoggle=<F2>
 map <F3> :NERDTreeToggle<CR>
+
+" Fix gvim man page reading.
+if has("gui_running")
+  nnoremap K :<C-U>exe "Man" v:count "<C-R><C-W>"<CR>
+endif
 
 
 "
@@ -114,6 +125,7 @@ autocmd FileType vue setlocal colorcolumn=120
 autocmd FileType perl setlocal tabstop=4 shiftwidth=4
 autocmd FileType ruby setlocal colorcolumn=80
 autocmd FileType sh setlocal noexpandtab tabstop=8 shiftwidth=8 colorcolumn=80
+autocmd FileType man setlocal nolist
 
 
 "
