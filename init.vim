@@ -132,7 +132,6 @@ autocmd FileType man setlocal nolist
 " Ale settings.
 "
 let g:ale_lint_on_text_changed=0
-let g:ale_c_parse_makefile=1
 
 let s:cflags  = "-std=c11 -Wall -Wextra -I."
   \ . " -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations"
