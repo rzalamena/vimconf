@@ -23,6 +23,11 @@ set listchars=tab:»·,trail:·,nbsp:·
 set background=dark
 colorscheme gruvbox
 
+" Fix bad spelling highlight in terminals.
+if !has('gui_running')
+  highlight SpellBad cterm=underline
+endif
+
 " show C function template.
 set showfulltag
 " required for previous option.
