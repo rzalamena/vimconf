@@ -21,7 +21,7 @@ set listchars=tab:»·,trail:·,nbsp:·
 "endif
 
 set background=dark
-colorscheme badwolf
+colorscheme gruvbox
 
 " Fix bad spelling highlight in terminals.
 if !has('gui_running')
@@ -39,7 +39,7 @@ set showtabline=2
 
 " lightline tweaks.
 let g:lightline = {
-  \ 'colorscheme': 'badwolf',
+  \ 'colorscheme': 'gruvbox',
   \ }
 
 " Show current key combinations (right bottom corner).
