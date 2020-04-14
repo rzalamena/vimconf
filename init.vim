@@ -129,7 +129,7 @@ autocmd FileType eelixir setlocal colorcolumn=120
 autocmd FileType vue setlocal colorcolumn=120
 autocmd FileType perl setlocal tabstop=4 shiftwidth=4
 autocmd FileType ruby setlocal colorcolumn=80
-autocmd FileType sh setlocal noexpandtab tabstop=8 shiftwidth=8 colorcolumn=80
+autocmd FileType sh setlocal expandtab tabstop=2 shiftwidth=2 colorcolumn=80
 autocmd FileType man setlocal nolist
 
 
