@@ -138,11 +138,9 @@ autocmd FileType man setlocal nolist
 "
 let g:ale_lint_on_text_changed=0
 
-let s:cflags  = "-std=c11 -Wall -Wextra -I."
+let s:cflags  = "-std=c11 -Wall -Wextra -Wshadow -I."
   \ . " -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations"
-  \ . " -Wshadow -Wpointer-arith -Wconversion -Wpacked"
-  \ . " -Wswitch-enum -Wimplicit-fallthrough"
-  \ . " -Wsuggest-attribute=const -Wsuggest-attribute=malloc -Walloc-zero"
+  \ . " -Wpointer-arith -Wconversion -Wpacked -Wswitch-enum"
 let g:ale_c_clang_options=s:cflags
 let g:ale_c_gcc_options=s:cflags
 
