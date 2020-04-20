@@ -13,12 +13,12 @@ set list
 set listchars=tab:»·,trail:·,nbsp:·
 
 " Fix theme colors.
-"if !has('gui_running')
-"  " Uncomment line below to fix color problems.
-"  set t_Co=256
-"  " Uncomment line below to support/use 24bit colors.
-"  set termguicolors
-"endif
+if !has('gui_running')
+  " Uncomment line below to fix color problems.
+  set t_Co=256
+  " Uncomment line below to support/use 24bit colors.
+  set termguicolors
+endif
 
 set background=dark
 colorscheme nord
