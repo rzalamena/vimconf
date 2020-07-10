@@ -7,55 +7,26 @@ scriptencoding utf-8
 "
 " User Interface.
 "
-
-" Show empty spaces, trailing lines and tabs.
-set list
-set listchars=tab:»·,trail:·,nbsp:·
-
-" Fix theme colors.
-if !has('gui_running')
-  " Uncomment line below to fix color problems.
-  set t_Co=256
-  " Uncomment line below to support/use 24bit colors.
-  set termguicolors
-endif
-
 set background=dark
-colorscheme nord
-
-" Fix bad spelling highlight in terminals.
-if !has('gui_running')
-  highlight SpellBad cterm=underline
-endif
 
 " show C function template.
 set showfulltag
-" required for previous option.
-set completeopt=menu,menuone,preview
-" Show status bar (lightline).
-set laststatus=2
-" Show tab bar.
-set showtabline=2
-
-" lightline tweaks.
-let g:lightline = {
-  \ 'colorscheme': 'nord',
-  \ }
+" Disable status bar: we have the same information without it already.
+set laststatus=0
+" Show completion menus with informational pop up.
+set completeopt=menu,menuone,popup,noinsert,noselect
 
 " Show current key combinations (right bottom corner).
 set showcmd
 
 " Show all completion options for commands.
 set wildmenu
-set wildmode=longest:full,full
+set wildmode=list
 set wildignore=*.o
 let g:ctrlp_custom_ignore = {
   \ 'dir': '\v(\.git|node_modules|_build)$',
   \ 'file': '\v\.o$',
   \ }
-
-" Disable preview window when using omnicomplete in C.
-set completeopt=menu,menuone
 
 " Color parantheses differently.
 autocmd VimEnter * RainbowParenthesesToggle
