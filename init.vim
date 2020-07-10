@@ -45,7 +45,7 @@ autocmd Syntax * RainbowParenthesesLoadBraces
 
 " disable backup files
 set nobackup
-" Always use tabs instead of spaces (only C wants tabs)
+" Always use spaces instead of tabs (only C wants tabs)
 set expandtab
 " tabs are at the proper location
 set tabstop=2
