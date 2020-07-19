@@ -35,8 +35,7 @@ autocmd Syntax * RainbowParenthesesLoadSquare
 autocmd Syntax * RainbowParenthesesLoadBraces
 
 " Auto scroll to keep cursor away from the screen edge.
-" (2019-10-01) Disabled because it breaks markdown and vue syntax highlight.
-" set scrolloff=16
+set scrolloff=16
 
 
 "
@@ -103,6 +102,11 @@ autocmd FileType ruby setlocal colorcolumn=80
 autocmd FileType sh setlocal expandtab tabstop=2 shiftwidth=2 colorcolumn=80
 autocmd FileType man setlocal nolist
 autocmd FileType nftables setlocal tabstop=2 shiftwidth=2 colorcolumn=80
+
+"
+" Vue settings.
+"
+let g:vim_vue_plugin_load_full_syntax = 1
 
 
 "

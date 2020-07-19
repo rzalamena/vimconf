@@ -1,1 +1,1 @@
-au BufNewFile,BufRead *.vue,*.wpy setf vue
+autocmd BufNewFile,BufRead *.vue,*.wpy setf vue
