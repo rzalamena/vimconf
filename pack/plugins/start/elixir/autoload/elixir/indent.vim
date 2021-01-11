@@ -21,6 +21,7 @@ function! elixir#indent#indent(lnum)
 
   let handlers = [
         \'top_of_file',
+        \'starts_with_string_continuation',
         \'following_trailing_binary_operator',
         \'starts_with_pipe',
         \'starts_with_binary_operator',
@@ -31,9 +32,14 @@ function! elixir#indent#indent(lnum)
         \]
   for handler in handlers
     call s:debug('testing handler elixir#indent#handle_'.handler)
-    let context = {'lnum': lnum, 'text': text, 'prev_nb_lnum': prev_nb_lnum, 'prev_nb_text': prev_nb_text}
+    let context = {'lnum': lnum, 'text': text, 'first_nb_char_idx': match(text, '\w'), 'prev_nb_lnum': prev_nb_lnum, 'prev_nb_text': prev_nb_text}
     let indent = function('elixir#indent#handle_'.handler)(context)
-    if indent != -1
+    if indent == -2
+      " Keep indent the same
+      call s:debug('line '.lnum.': elixir#indent#handle_'.handler.' returned -2; returning indent of -1')
+      call cursor(curs_lnum, curs_col)
+      return -1
+    elseif indent != -1
       call s:debug('line '.lnum.': elixir#indent#handle_'.handler.' returned '.indent)
       call cursor(curs_lnum, curs_col)
       return indent
@@ -98,7 +104,11 @@ endfunction
 " Returns 0 or 1 based on whether or not the given line number and column
 " number pair is a string or comment
 function! s:is_string_or_comment(line, col)
-  return synIDattr(synID(a:line, a:col, 1), "name") =~ '\%(String\|Comment\)'
+  return s:syntax_name(a:line, a:col) =~ '\%(String\|Comment\)'
+endfunction
+
+function! s:syntax_name(line, col)
+  return synIDattr(synID(a:line, a:col, 1), "name")
 endfunction
 
 " Skip expression for searchpair. Returns 0 or 1 based on whether the value
@@ -149,6 +159,14 @@ endfunction
 function! elixir#indent#handle_top_of_file(context)
   if a:context.prev_nb_lnum == 0
     return 0
+  else
+    return -1
+  end
+endfunction
+
+function! elixir#indent#handle_starts_with_string_continuation(context)
+  if s:syntax_name(a:context.lnum, a:context.first_nb_char_idx) =~ '\(String\|Comment\)$'
+    return -2
   else
     return -1
   end
@@ -256,12 +274,14 @@ function! elixir#indent#handle_inside_block(context)
   " hack - handle do: better
   let block_info = searchpairpos(start_pattern, '', end_pattern, 'bnW', "line('.') == " . line('.') . " || elixir#indent#searchpair_back_skip() || getline(line('.')) =~ 'do:'", max([0, a:context.lnum - g:elixir_indent_max_lookbehind]))
   let block_start_lnum = block_info[0]
+  call s:debug("block_start_lnum=" . block_start_lnum)
   let block_start_col = block_info[1]
   if block_start_lnum != 0 || block_start_col != 0
     let block_text = getline(block_start_lnum)
     let block_start_char = block_text[block_start_col - 1]
+    call s:debug("block_start_char=" . block_start_char)
 
-    let never_match = '\(a\)\@=b'
+    let never_match = ''
     let config = {
           \'f': {'aligned_clauses': s:keyword('end'), 'pattern_match_clauses': never_match},
           \'c': {'aligned_clauses': s:keyword('end'), 'pattern_match_clauses': never_match},
@@ -273,17 +293,25 @@ function! elixir#indent#handle_inside_block(context)
           \'(': {'aligned_clauses': ')', 'pattern_match_clauses': never_match}
           \}
 
+    " if `with` clause...
     if block_start_char == 'w'
       call s:debug("testing s:handle_with")
       return s:handle_with(block_start_lnum, block_start_col, a:context)
     else
       let block_config = config[block_start_char]
+      " if aligned clause (closing tag/`else` clause/etc...) then indent this
+      " at the same level as the block open tag (e.g. `if`/`case`/etc...)
       if s:starts_with(a:context, block_config.aligned_clauses)
         call s:debug("clause")
         return indent(block_start_lnum)
       else
-        let clause_lnum = searchpair(block_config.pattern_match_clauses, '', '*', 'bnW', "line('.') == " . line('.') . " || elixir#indent#searchpair_back_skip()", block_start_lnum)
-        let relative_lnum = max([clause_lnum, block_start_lnum])
+        if block_config.pattern_match_clauses == never_match
+          let relative_lnum = block_start_lnum
+        else
+          let clause_lnum = searchpair(block_config.pattern_match_clauses, '', '*', 'bnW', "line('.') == " . line('.') . " || elixir#indent#searchpair_back_skip()", block_start_lnum)
+          call s:debug("clause_lum=" . clause_lnum)
+          let relative_lnum = max([clause_lnum, block_start_lnum])
+        end
         call s:debug("pattern matching relative to lnum " . relative_lnum)
         return s:do_handle_pattern_match_block(relative_lnum, a:context)
       endif
