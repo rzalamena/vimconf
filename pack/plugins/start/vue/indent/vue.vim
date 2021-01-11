@@ -26,6 +26,7 @@ let s:empty_tag_start = '\v\<'.s:empty_tagname.'[^\>]*$'
 let s:empty_tag_end = '\v^\s*[^\<\>\/]*\/?\>\s*' 
 let s:tag_start = '\v^\s*\<\w*'
 let s:tag_end = '\v^\s*\/?\>\s*'
+let s:full_tag_end = '\v^\s*\<\/'
 "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -33,28 +34,14 @@ let s:tag_end = '\v^\s*\/?\>\s*'
 " Config {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let s:use_pug = exists("g:vim_vue_plugin_use_pug")
-      \ && g:vim_vue_plugin_use_pug == 1
-let s:use_sass = exists("g:vim_vue_plugin_use_sass")
-      \ && g:vim_vue_plugin_use_sass == 1
-let s:use_scss = exists("g:vim_vue_plugin_use_scss")
-      \ && g:vim_vue_plugin_use_scss == 1
-let s:use_stylus = exists("g:vim_vue_plugin_use_stylus")
-      \ && g:vim_vue_plugin_use_stylus == 1
-let s:use_coffee = exists("g:vim_vue_plugin_use_coffee")
-      \ && g:vim_vue_plugin_use_coffee == 1
-let s:use_typescript = exists("g:vim_vue_plugin_use_typescript")
-      \ && g:vim_vue_plugin_use_typescript == 1
-
-let s:has_init_indent = 0
-if !exists("g:vim_vue_plugin_has_init_indent")
-  let ext = expand("%:e")
-  if ext == 'wpy'
-    let s:has_init_indent = 1
-  endif
-elseif g:vim_vue_plugin_has_init_indent == 1
-  let s:has_init_indent = 1
-endif
+let s:use_pug = vue#GetConfig("use_pug", 0)
+let s:use_sass = vue#GetConfig("use_sass", 0)
+let s:use_scss = vue#GetConfig("use_scss", 0)
+let s:use_stylus = vue#GetConfig("use_stylus", 0)
+let s:use_coffee = vue#GetConfig("use_coffee", 0)
+let s:use_typescript = vue#GetConfig("use_typescript", 0)
+let s:has_init_indent = vue#GetConfig("has_init_indent",
+      \ expand("%:e") == 'wpy' ? 1 : 0)
 "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -112,7 +99,6 @@ endif
 " Settings {{{
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-setlocal sw=2 ts=2
 " JavaScript indentkeys
 setlocal indentkeys=0{,0},0),0],0\,,!^F,o,O,e,:
 " XML indentkeys
@@ -155,7 +141,11 @@ function! GetVueIndent()
       let [start, end] = s:PrevMultilineEmptyTag(v:lnum)
       if end == prevlnum
         call vue#Log('previous line is a multiline empty tag')
-        let ind = indent(v:lnum - 1)
+        if curline =~? s:full_tag_end 
+          let ind = indent(v:lnum - 1) - &sw
+        else
+          let ind = indent(v:lnum - 1)
+        endif
       endif
     endif
   elseif s:SynPug(cursyn)
@@ -283,7 +273,7 @@ function! s:PrevMultilineEmptyTag(lnum)
 endfunction
 
 function! s:PrevNonBlacnkNonComment(lnum)
-  let curline = getline(lnum)
+  let curline = getline(a:lnum)
   let cursyns = s:SynsEOL(a:lnum)
   let cursyn = get(cursyns, 1, '')
   if cursyn =~? 'comment' && !empty(curline)
@@ -301,28 +291,6 @@ function! s:PrevNonBlacnkNonComment(lnum)
     let prevsyn = get(prevsyns, 1, '')
   endwhile
   return prevlnum
-endfunction
-
-function! GetVueTag(...)
-  if a:0 > 0
-    let lnum = a:1
-  else
-    let lnum = getcurpos()[1]
-  endif
-  let cursyns = s:SynsEOL(lnum)
-  let syn = get(cursyns, 0, '')
-
-  if syn =~ 'VueTemplate'
-    let tag = 'template'
-  elseif syn =~ 'VueScript'
-    let tag = 'script'
-  elseif syn =~ 'VueStyle'
-    let tag = 'style'
-  else
-    let tag = ''
-  endif
-
-  return tag
 endfunction
 "}}}
 

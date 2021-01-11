@@ -1,4 +1,4 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim syntax file
 "
 " Language: Vue
@@ -6,41 +6,33 @@
 "
 " CREDITS: Inspired by mxw/vim-jsx.
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if exists("b:current_syntax") && b:current_syntax == 'vue'
   finish
 endif
 
 " For advanced users, this variable can be used to avoid overload
 let b:current_loading_main_syntax = 'vue'
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Config {{{
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let s:load_full_syntax = exists("g:vim_vue_plugin_load_full_syntax")
-      \ && g:vim_vue_plugin_load_full_syntax == 1
-let s:use_pug = exists("g:vim_vue_plugin_use_pug")
-      \ && g:vim_vue_plugin_use_pug == 1
-let s:use_less = exists("g:vim_vue_plugin_use_less")
-      \ && g:vim_vue_plugin_use_less == 1
-let s:use_sass = exists("g:vim_vue_plugin_use_sass")
-      \ && g:vim_vue_plugin_use_sass == 1
-let s:use_scss = exists("g:vim_vue_plugin_use_scss")
-      \ && g:vim_vue_plugin_use_scss == 1
-let s:use_stylus = exists("g:vim_vue_plugin_use_stylus")
-      \ && g:vim_vue_plugin_use_stylus == 1
-let s:use_coffee = exists("g:vim_vue_plugin_use_coffee")
-      \ && g:vim_vue_plugin_use_coffee == 1
-let s:use_typescript = exists("g:vim_vue_plugin_use_typescript")
-      \ && g:vim_vue_plugin_use_typescript == 1
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let s:load_full_syntax = vue#GetConfig("load_full_syntax", 0)
+let s:use_pug = vue#GetConfig("use_pug", 0)
+let s:use_less = vue#GetConfig("use_less", 0)
+let s:use_sass = vue#GetConfig("use_sass", 0)
+let s:use_scss = vue#GetConfig("use_scss", 0)
+let s:use_stylus = vue#GetConfig("use_stylus", 0)
+let s:use_coffee = vue#GetConfig("use_coffee", 0)
+let s:use_typescript = vue#GetConfig("use_typescript", 0)
 "}}}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Functions {{{
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! s:LoadSyntax(group, type)
   if s:load_full_syntax
     call s:LoadFullSyntax(a:group, a:type)
@@ -80,11 +72,11 @@ function! s:SetCurrentSyntax(type)
 endfunction
 "}}}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Load main syntax {{{
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Load syntax/html.vim to syntax group, which loads full JavaScript and CSS
 " syntax. It defines group htmlJavaScript and htmlCss.
 call s:LoadSyntax('@HTMLSyntax', 'html')
@@ -92,23 +84,26 @@ call s:LoadSyntax('@HTMLSyntax', 'html')
 " Load vue-html syntax
 runtime syntax/vue-html.vim
 
-" Avoid overload.
-if hlexists('cssTagName') == 0
+" Avoid overload
+if !hlexists('cssTagName')
   call s:LoadSyntax('@htmlCss', 'css')
 endif
 
 " Avoid overload
-if hlexists('javaScriptComment') == 0
+if !hlexists('javaScriptComment')
   call vue#Log('load javascript cluster')
   call s:LoadSyntax('@htmlJavaScript', 'javascript')
 endif
+
+" Load vue-javascript syntax
+runtime syntax/vue-javascript.vim
 "}}}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Load pre-processors syntax {{{
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " If pug is enabled, load vim-pug syntax
 if s:use_pug
   call s:LoadFullSyntax('@PugSyntax', 'pug')
@@ -151,11 +146,11 @@ if s:use_typescript
 endif
 "}}}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Syntax highlight {{{
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " All start with html/javascript/css for emmet-vim in-file type detection
 syntax region htmlVueTemplate fold
       \ start=+<template[^>]*>+
@@ -233,11 +228,11 @@ highlight default link cssKeyFrameProp2 Constant
 
 "}}}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Syntax patch {{{
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Patch 7.4.1142
 if has("patch-7.4-1142")
   if has("win32")
@@ -265,14 +260,24 @@ if s:use_sass
         \ contains=@SassSyntax,sassDefinition 
         \ contained containedin=sassVueStyle
         \ start="{" end="}" 
+
+  " Extend to highlight all numbers in expression
+  syntax match cssValueNumber
+        \ /\W\zs\d\+\(\.\d\+\)\?%\?\ze\W/
+        \ contained containedin=sassDefinition
 endif
-" Active if not loading https://github.com/cakebaker/scss-syntax.vim
-if s:use_scss && hlexists('scssNestedProperty') == 0
+" If not loading https://github.com/cakebaker/scss-syntax.vim
+if s:use_scss && !hlexists('scssNestedProperty')
   silent! syntax clear scssDefinition
   syntax region cssScssDefinition transparent matchgroup=cssBraces 
         \ contains=@ScssSyntax,cssScssDefinition
         \ contained containedin=cssScssVueStyle
         \ start="{" end="}" 
+
+  " Extend to highlight all numbers in expression
+  syntax match cssValueNumber
+        \ /\W\zs\d\+\(\.\d\+\)\?%\?\ze\W/
+        \ contained containedin=cssScssDefinition
 endif
 if s:use_stylus
   silent! syntax clear stylusDefinition
@@ -282,8 +287,7 @@ if s:use_stylus
         \ start="{" end="}" 
 endif
 
-" Avoid css syntax interference
-" Have to use a different name
+" Use a different name in order to avoid css syntax interference
 silent! syntax clear cssUnitDecorators
 syntax match cssUnitDecorators2 
       \ /\(#\|-\|+\|%\|mm\|cm\|in\|pt\|pc\|em\|ex\|px\|ch\|rem\|vh\|vw\|vmin\|vmax\|dpi\|dppx\|dpcm\|Hz\|kHz\|s\|ms\|deg\|grad\|rad\)\ze\(;\|$\)/
@@ -315,13 +319,13 @@ silent! syntax clear htmlHead
 syntax match htmlArg '\v<data(-[.a-z0-9]+)+>' containedin=@HTMLSyntax
 "}}}
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " Syntax sync {{{
 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax sync clear
-syntax sync minlines=10
+syntax sync minlines=100
 syntax sync match vueHighlight groupthere NONE "</\(script\|template\|style\)"
 syntax sync match scriptHighlight groupthere javascriptVueScript "<script"
 syntax sync match scriptHighlight groupthere coffeeVueScript "<script[^>]*lang=["']coffee["'][^>]*>"
