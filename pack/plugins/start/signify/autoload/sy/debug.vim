@@ -1,8 +1,8 @@
-" vim: et sw=2 sts=2
+" vim: et sw=2 sts=2 fdm=marker
 
 scriptencoding utf-8
 
-" Function: #list_active_buffers {{{1
+" #list_active_buffers {{{1
 function! sy#debug#list_active_buffers() abort
   for b in range(1, bufnr('$'))
     if !buflisted(b) || empty(getbufvar(b, 'sy'))
@@ -14,7 +14,7 @@ function! sy#debug#list_active_buffers() abort
 
     echo "\n". path ."\n". repeat('=', strlen(path))
 
-    for k in ['active', 'buffer', 'vcs', 'stats', 'signid']
+    for k in ['buffer', 'vcs', 'stats', 'signid']
       if k == 'stats'
         echo printf("%10s  =  %d added, %d changed, %d removed\n",
               \ k,
