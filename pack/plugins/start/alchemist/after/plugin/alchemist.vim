@@ -166,8 +166,7 @@ function! s:open_doc_window(query, newposition, position)
     setlocal modifiable
     setlocal noreadonly
     %delete _
-    call append(0, split(content, "\n"))
-    sil $delete _
+    call append(0, alchemist#trim_doc(content))
     sil $delete _
     normal gg
 
@@ -419,6 +418,8 @@ if !exists('g:alchemist_iex_term_split')
 endif
 if has('nvim')
   let s:alchemist_iex_runner = "terminal"
+elseif (v:version >= 801)
+  let s:alchemist_iex_runner = "terminal ++curwin"
 elseif exists('g:ConqueTerm_Loaded')
   let s:alchemist_iex_runner = "ConqueTerm"
 endif
@@ -442,7 +443,7 @@ endfunction
 
 function! alchemist#open_iex(command)
   if !exists('s:alchemist_iex_runner')
-    echom "IEx requires either Neovim or ConqueShell"
+    echom "IEx requires VIM 8.1, Neovim or ConqueShell"
     return ""
   endif
   if s:iex_buffer_exists()
@@ -538,6 +539,17 @@ function! alchemist#mix_complete(ArgLead, CmdLine, CursorPos, ...)
     execute 'lcd ' . fnameescape(old_cwd)
   endif
   return g:mix_tasks
+endfunction
+
+function! alchemist#trim_doc(content)
+    let l:lines = split(a:content, "\n")
+    let l:end_index = len(l:lines) - 1
+
+    while l:end_index > 0 && empty(l:lines[l:end_index])
+        let l:end_index -= 1
+    endwhile
+
+    return l:lines[:l:end_index]
 endfunction
 
 command! -nargs=? -complete=customlist,elixircomplete#ex_doc_complete ExDoc
