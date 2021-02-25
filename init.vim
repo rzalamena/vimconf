@@ -124,6 +124,11 @@ let g:ale_linters={
   \ 'c': ['gcc', 'clang'],
   \ }
 
+"
+" global/gtags
+"
+set cscopetag
+
 
 "
 " Generate doc links.
