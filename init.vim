@@ -117,11 +117,11 @@ let g:ale_lint_on_text_changed=0
 let s:cflags  = "-std=c11 -Wall -Wextra -Wshadow -I."
   \ . " -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations"
   \ . " -Wpointer-arith -Wconversion -Wpacked -Wswitch-enum"
-let g:ale_c_clang_options=s:cflags
-let g:ale_c_gcc_options=s:cflags
+let g:ale_c_clangd_options=s:cflags
+let g:ale_c_cc_options=s:cflags
 
 let g:ale_linters={
-  \ 'c': ['gcc', 'clang'],
+  \ 'c': ['cc', 'clangd'],
   \ }
 
 "
