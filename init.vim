@@ -30,6 +30,14 @@ set completeopt=menu,menuone,popup,noinsert,noselect
 " Show current key combinations (right bottom corner).
 set showcmd
 
+" Tweak search:
+" * Case insensitive search by default
+" * If upper case used then prefer that
+" * Search as you type
+set ignorecase
+set smartcase
+set incsearch
+
 " Show all completion options for commands.
 set wildmenu
 set wildmode=list
