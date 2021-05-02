@@ -25,7 +25,7 @@ set showfulltag
 " Disable status bar: we have the same information without it already.
 set laststatus=0
 " Show completion menus with informational pop up.
-set completeopt=menu,menuone,popup,noinsert,noselect
+set completeopt=menu,menuone
 
 " Show current key combinations (right bottom corner).
 set showcmd
@@ -40,7 +40,7 @@ set incsearch
 
 " Show all completion options for commands.
 set wildmenu
-set wildmode=list
+set wildmode=list:longest
 set wildignore=*.o
 let g:ctrlp_custom_ignore = {
   \ 'dir': '\v(\.git|node_modules|_build)$',
