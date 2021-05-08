@@ -61,8 +61,11 @@ function! lsp#enable() abort
     call lsp#ui#vim#completion#_setup()
     call lsp#internal#document_highlight#_enable()
     call lsp#internal#diagnostics#_enable()
+    call lsp#internal#document_code_action#signs#_enable()
     call lsp#internal#show_message_request#_enable()
+    call lsp#internal#show_message#_enable()
     call lsp#internal#work_done_progress#_enable()
+    call lsp#internal#completion#documentation#_enable()
     call s:register_events()
 endfunction
 
@@ -74,8 +77,11 @@ function! lsp#disable() abort
     call lsp#ui#vim#completion#_disable()
     call lsp#internal#document_highlight#_disable()
     call lsp#internal#diagnostics#_disable()
+    call lsp#internal#document_code_action#signs#_disable()
     call lsp#internal#show_message_request#_disable()
+    call lsp#internal#show_message#_disable()
     call lsp#internal#work_done_progress#_disable()
+    call lsp#internal#completion#documentation#_disable()
     call s:unregister_events()
     let s:enabled = 0
 endfunction
@@ -150,7 +156,7 @@ function! lsp#print_server_status() abort
 endfunction
 
 " @params {server_info} = {
-"   'name': 'go-langserver',        " requried, must be unique
+"   'name': 'go-langserver',        " required, must be unique
 "   'allowlist': ['go'],            " optional, array of filetypes to allow, * for all filetypes
 "   'blocklist': [],                " optional, array of filetypes to block, * for all filetypes,
 "   'cmd': {server_info->['go-langserver]} " function that takes server_info and returns array of cmd and args, return empty if you don't want to start the server
@@ -465,7 +471,9 @@ function! lsp#default_get_supported_capabilities(server_info) abort
     \           'codeActionKind': {
     \             'valueSet': ['', 'quickfix', 'refactor', 'refactor.extract', 'refactor.inline', 'refactor.rewrite', 'source', 'source.organizeImports'],
     \           }
-    \         }
+    \         },
+    \         'isPreferredSupport': v:true,
+    \         'disabledSupport': v:true,
     \       },
     \       'codeLens': {
     \           'dynamicRegistration': v:false,
@@ -473,7 +481,7 @@ function! lsp#default_get_supported_capabilities(server_info) abort
     \       'completion': {
     \           'dynamicRegistration': v:false,
     \           'completionItem': {
-    \              'documentationFormat': ['plaintext'],
+    \              'documentationFormat': ['markdown', 'plaintext'],
     \              'snippetSupport': v:false,
     \              'resolveSupport': {
     \                  'properties': ['additionalTextEdits']
@@ -857,8 +865,6 @@ function! s:handle_initialize(server_name, data) abort
         call l:Init_callback(a:data)
     endfor
 
-    call lsp#ui#vim#documentation#setup()
-
     doautocmd <nomodeline> User lsp_server_init
 endfunction
 
@@ -1025,7 +1031,7 @@ endfunction
 function! s:request_on_notification(ctx, id, data, event) abort
     if a:ctx['cancelled'] | return | endif " caller already unsubscribed so don't bother notifying
     let a:ctx['done'] = 1
-    call a:ctx['next'](a:data)
+    call a:ctx['next'](extend({ 'server_name': a:ctx['server_name'] }, a:data))
     call a:ctx['complete']()
 endfunction
 
@@ -1036,7 +1042,7 @@ function! s:request_cancel(ctx) abort
     if lsp#get_server_status(a:ctx['server_name']) !=# 'running' | return | endif " if server is not running we cant send the request
     " send the actual cancel request
     let a:ctx['dispose'] = lsp#callbag#pipe(
-        \ lsp#request(a:ctx['server_name'], {
+        \ lsp#notification(a:ctx['server_name'], {
         \   'method': '$/cancelRequest',
         \   'params': { 'id': a:ctx['request_id'] },
         \ }),
@@ -1073,6 +1079,12 @@ endfunction
 function! s:send_request_error(ctx, error) abort
     call a:ctx['cb'](a:error)
     call s:send_request_dispose(a:ctx)
+endfunction
+" }}}
+
+" lsp#notification {{{
+function! lsp#notification(server_name, request) abort
+    return lsp#callbag#lazy(function('s:send_notification', [a:server_name, a:request]))
 endfunction
 " }}}
 
@@ -1146,6 +1158,23 @@ endfunction
 " 'percentage': 0 - 100 or not exist
 function! lsp#get_progress() abort
     return lsp#internal#work_done_progress#get_progress()
+endfunction
+
+"
+" Scroll vim-lsp related windows.
+"
+" NOTE: This method can be used to <expr> mapping.
+"
+function! lsp#scroll(count) abort
+    let l:ctx = {}
+    function! l:ctx.callback(count) abort
+        let l:Window = vital#lsp#import('VS.Vim.Window')
+        for l:winid in l:Window.find({ winid -> l:Window.is_floating(winid) })
+            call l:Window.scroll(l:winid, l:Window.info(l:winid).topline + a:count)
+        endfor
+    endfunction
+    call timer_start(0, { -> l:ctx.callback(a:count) })
+    return "\<Ignore>"
 endfunction
 
 function! s:merge_dict(dict_old, dict_new) abort
