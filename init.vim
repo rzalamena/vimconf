@@ -158,9 +158,10 @@ let g:vim_vue_plugin_load_full_syntax = 1
 "
 let g:ale_lint_on_text_changed=0
 
-let s:cflags  = "-std=c11 -Wall -Wextra -Wshadow -I."
-  \ . " -Wstrict-prototypes -Wmissing-prototypes -Wmissing-declarations"
-  \ . " -Wpointer-arith -Wconversion -Wpacked -Wswitch-enum"
+let s:cflags  = "-std=c11 -Wall -Wextra -Wshadow -I. "
+  \ . "-Wstrict-prototypes -Wmissing-prototypes -Wlogic-op "
+  \ . "-Wpointer-arith -Wconversion -Wpacked -Wswitch-enum "
+  \ . "-Wwrite-strings "
 let g:ale_c_clangd_options=s:cflags
 let g:ale_c_cc_options=s:cflags
 
