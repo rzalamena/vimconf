@@ -147,6 +147,9 @@ autocmd FileType sh setlocal expandtab tabstop=2 shiftwidth=2 colorcolumn=80
 autocmd FileType man setlocal nolist
 autocmd FileType nftables setlocal tabstop=2 shiftwidth=2 colorcolumn=80
 
+" Configure extra C indentation options.
+set cinoptions=(0,:0,Ls
+
 "
 " Vue settings.
 "
