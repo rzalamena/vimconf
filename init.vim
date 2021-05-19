@@ -43,7 +43,7 @@ set wildmenu
 set wildmode=list:longest
 set wildignore=*.o
 let g:ctrlp_custom_ignore = {
-  \ 'dir': '\v(\.git|node_modules|_build)$',
+  \ 'dir': '\v(\.git|node_modules|_build|build)$',
   \ 'file': '\v\.o$',
   \ }
 
