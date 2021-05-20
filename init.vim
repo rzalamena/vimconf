@@ -150,6 +150,37 @@ autocmd FileType nftables setlocal tabstop=2 shiftwidth=2 colorcolumn=80
 " Configure extra C indentation options.
 set cinoptions=(0,:0,Ls
 
+let g:clang_format#code_style = 'llvm'
+let g:clang_format#style_options = {
+  \ "AlignAfterOpenBracket": "Align",
+  \ "AlignConsecutiveAssignments": "false",
+  \ "AlignConsecutiveBitFields": "true",
+  \ "AlignConsecutiveDeclarations": "true",
+  \ "AlignConsecutiveMacros": "true",
+  \ "AlignEscapedNewlines": "Right",
+  \ "AlignOperands": "Align",
+  \ "AllowShortCaseLabelsOnASingleLine": "false",
+  \ "AllowShortEnumsOnASingleLine": "false",
+  \ "AllowShortIfStatementsOnASingleLine": "Never",
+  \ "AllowShortLoopsOnASingleLine": "false",
+  \ "AlwaysBreakAfterReturnType": "TopLevelDefinitions",
+  \ "BreakBeforeBraces": "Linux",
+  \ "ColumnLimit": 80,
+  \ "IndentCaseLabels": "false",
+  \ "IndentGotoLabels": "true",
+  \ "IndentWidth": 8,
+  \ "IndentWrappedFunctionNames": "false",
+  \ "KeepEmptyLinesAtTheStartOfBlocks": "false",
+  \ "Language": "Cpp",
+  \ "MaxEmptyLinesToKeep": 1,
+  \ "PointerAlignment": "Right",
+  \ "SpaceAfterCStyleCast": "false",
+  \ "SpaceAfterLogicalNot": "false",
+  \ "SpaceBeforeAssignmentOperators": "true",
+  \ "SpacesInCStyleCastParentheses": "false",
+  \ "UseTab": "Always",
+  \ }
+
 "
 " Vue settings.
 "
