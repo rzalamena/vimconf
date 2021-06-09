@@ -147,6 +147,12 @@ autocmd FileType sh setlocal expandtab tabstop=2 shiftwidth=2 colorcolumn=80
 autocmd FileType man setlocal nolist
 autocmd FileType nftables setlocal tabstop=2 shiftwidth=2 colorcolumn=80
 
+" Treat .h files as C and use doxygen syntax highlights.
+augroup cheadertype
+  autocmd!
+  autocmd BufRead,BufNewFile *.c,*.h set filetype=c.doxygen
+augroup END
+
 " Configure extra C indentation options.
 set cinoptions=(0,:0,Ls
 
@@ -155,7 +161,7 @@ let g:clang_format#style_options = {
   \ "AlignAfterOpenBracket": "Align",
   \ "AlignConsecutiveAssignments": "false",
   \ "AlignConsecutiveBitFields": "true",
-  \ "AlignConsecutiveDeclarations": "true",
+  \ "AlignConsecutiveDeclarations": "false",
   \ "AlignConsecutiveMacros": "true",
   \ "AlignEscapedNewlines": "Right",
   \ "AlignOperands": "Align",
@@ -166,6 +172,7 @@ let g:clang_format#style_options = {
   \ "AlwaysBreakAfterReturnType": "TopLevelDefinitions",
   \ "BreakBeforeBraces": "Linux",
   \ "ColumnLimit": 80,
+  \ "ForEachMacros": ["TAILQ_FOREACH"],
   \ "IndentCaseLabels": "false",
   \ "IndentGotoLabels": "true",
   \ "IndentWidth": 8,
@@ -177,6 +184,7 @@ let g:clang_format#style_options = {
   \ "SpaceAfterCStyleCast": "false",
   \ "SpaceAfterLogicalNot": "false",
   \ "SpaceBeforeAssignmentOperators": "true",
+  \ "SpaceBeforeParens": "ControlStatementsExceptForEachMacros",
   \ "SpacesInCStyleCastParentheses": "false",
   \ "UseTab": "Always",
   \ }
@@ -193,9 +201,9 @@ let g:vim_vue_plugin_load_full_syntax = 1
 let g:ale_lint_on_text_changed=0
 
 let s:cflags  = "-std=c11 -Wall -Wextra -Wshadow -I. "
-  \ . "-Wstrict-prototypes -Wmissing-prototypes -Wlogical-op "
+  \ . "-Wstrict-prototypes -Wmissing-prototypes "
   \ . "-Wpointer-arith -Wconversion -Wpacked -Wswitch-enum "
-  \ . "-Wwrite-strings "
+  \ . "-Wwrite-strings -Wundef -Wsign-conversion -Wconversion "
 let g:ale_c_clangd_options=s:cflags
 let g:ale_c_cc_options=s:cflags
 
