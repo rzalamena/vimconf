@@ -31,12 +31,9 @@ set completeopt=menu,menuone
 set showcmd
 
 " Tweak search:
-" * Case insensitive search by default
-" * If upper case used then prefer that
-" * Search as you type
-set ignorecase
-set smartcase
-set incsearch
+set ignorecase      " default to case insensitive
+set smartcase       " prefer upper case if used
+"set incsearch      " search as you type.
 
 " Show all completion options for commands.
 set wildmenu
@@ -63,6 +60,10 @@ set scrolloff=16
 
 " disable backup files
 set nobackup
+" disable swap files
+set noswapfile
+" disable undo files
+set noundofile
 " Always use spaces instead of tabs (only C wants tabs)
 set expandtab
 " tabs are at the proper location
@@ -147,7 +148,8 @@ let g:clang_format#style_options = {
   \ "AlwaysBreakAfterReturnType": "TopLevelDefinitions",
   \ "BreakBeforeBraces": "Linux",
   \ "ColumnLimit": 80,
-  \ "ForEachMacros": ["TAILQ_FOREACH"],
+  \ "ContinuationIndentWidth": 8,
+  \ "ForEachMacros": ["TAILQ_FOREACH", "LIST_FOREACH", "LIST_FOREACH_SAFE"],
   \ "IndentCaseLabels": "false",
   \ "IndentGotoLabels": "true",
   \ "IndentWidth": 8,
