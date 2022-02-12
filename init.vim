@@ -17,8 +17,8 @@ endif
 
 " Use a light theme with 24bit colors.
 set termguicolors
-set background=light
-colorscheme one
+set background=dark
+colorscheme PaperColor
 
 " show C function template.
 set showfulltag
