@@ -37,11 +37,11 @@ that are part of Git repositories).
 
                                                 *:Git_--paginate* *:Git_-p*
 :Git --paginate {args}  Run an arbitrary git command, capture output to a temp
-:Git -p {args}          file, and |:split| that temp file.  Use :0Git to
-                        |:edit| the temp file instead.  A temp file is always
-                        used for commands like diff and log that typically
-                        uses a pager, and for any command that has the
-                        pager.<cmd> Git configuration option set.
+:Git -p {args}          file, and |:split| that temp file.  Pass ++curwin as
+                        the first argument to |:edit| the temp file instead.
+                        A temp file is always used for commands like diff and
+                        log that typically uses a pager, and for any command
+                        that has the pager.<cmd> Git configuration option set.
 
 :{range}Git! --paginate {args}
 :{range}Git! -p {args}  Run an arbitrary git command, and insert the output
@@ -70,8 +70,8 @@ that are part of Git repositories).
                         O     jump to patch or blob in new tab
                         p     jump to patch or blob in preview window
                         -     reblame at commit
-                        ~     reblame at [count]th first grandparent
-                        P     reblame at [count]th parent (like HEAD^[count])
+                        ~     reblame at commit~[count]
+                        P     reblame at commit^[count]
 
                                                 *g:fugitive_dynamic_colors*
                         In the GUI or a 256 color terminal, commit hashes will
@@ -98,9 +98,19 @@ that are part of Git repositories).
                                                 *:Git_mergetool*
 :Git mergetool [args]   Like |:Git_difftool|, but target merge conflicts.
 
-                                                *:Ggrep* *:Gcgrep* *:Git_grep*
+Wrappers for Vim built-ins ~
+
+These all directly map onto a built-in Vim command, and generally have names
+that prepend "G" to the command they are wrapping.  For example, :Ggrep is G
+plus |:grep|.
+
+                                                *:Ggrep* *:Git_grep*
 :Ggrep[!] [args]        An approximation of |:grep|[!] with git-grep as
 :Git[!] grep -O [args]  'grepprg'.
+
+:Ggrep[!] --quiet [args]
+:Ggrep[!] -q [args]     Like |:Ggrep|, but instead of displaying output, open
+                        the quickfix list.
 
                                                 *:Glgrep*
 :Glgrep[!] [args]       :Ggrep but for |:lgrep|.
@@ -109,11 +119,12 @@ that are part of Git repositories).
                                                  *:Gclog*
 :Gclog[!] [args]        Use git-log [args] to load the commit history into the
                         |quickfix| list.  Jumps to the first commit unless [!]
-                        is given.
+                        is given.  This command wraps |:cfile|.
 
                         The quickfix list can be awkward for many use cases
                         and exhibits extremely poor performance with larger
-                        data sets.  Consider using |:Git| log instead.
+                        data sets.  Consider using |:Git| log --oneline
+                        instead.
 
 :{range}Gclog[!] [args] Use git-log -L to load previous revisions of the given
                         range of the current file into the |quickfix| list.
@@ -209,6 +220,13 @@ that are part of Git repositories).
                         'diffopt'.  The split will still be vertical if
                         combined with |:vertical|.
 
+Other commands ~
+
+These do not directly correspond to any built-in Vim command, and have a
+capital letter after the "G" to convey this. For example, the file move
+operation has nothing to do with the |:move| built-in, so it is named :GMove,
+not :Gmove.
+
                                                 *:GMove*
 :GMove {destination}    Wrapper around git-mv that renames the buffer
                         afterward.  Add a ! to pass -f.
@@ -223,8 +241,9 @@ that are part of Git repositories).
                         passed.  Add a ! to pass -f and forcefully discard the
                         buffer.
 
-                                                *:GRemove*
+                                                *:GRemove* *:GUnlink*
 :GRemove                Like |:GDelete|, but keep the (now empty) buffer around.
+:GUnlink
 
                                                 *:GBrowse*
 :GBrowse                Open the current file, blob, tree, commit, or tag
@@ -314,6 +333,7 @@ dv                      Perform a |:Gvdiffsplit| on the file under the cursor.
                                                 *fugitive_ds* *fugitive_dh*
 ds                      Perform a |:Ghdiffsplit| on the file under the cursor.
 dh
+
                                                 *fugitive_dq*
 dq                      Close all but one diff buffer, and |:diffoff|! the
                         last one.
@@ -651,6 +671,10 @@ FugitiveIndex           After loading the |fugitive-summary| buffer.
                                                 *User_FugitivePager*
 FugitivePager           After loading a temp file created by a command like
                         :Git --paginate or :Git blame.
+
+                                                *User_FugitiveEditor*
+FugitiveEditor          After a :Git command (e.g., :Git commit) edits a file
+                        (e.g., the commit message).
 
                                                 *User_FugitiveChanged*
 FugitiveChanged         After any event which can potentially change the
