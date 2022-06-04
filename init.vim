@@ -34,6 +34,7 @@ set showcmd
 set ignorecase      " default to case insensitive
 set smartcase       " prefer upper case if used
 "set incsearch      " search as you type.
+set nohlsearch      " don't highlight searched term
 
 " Show all completion options for commands.
 set wildmenu
