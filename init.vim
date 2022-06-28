@@ -16,7 +16,9 @@ if !has("gui_running")
 endif
 
 " Use a light theme with 24bit colors.
-set termguicolors
+if has("termguicolors")
+  set termguicolors
+endif
 set background=dark
 let g:tokyonight_style="night"
 colorscheme tokyonight
