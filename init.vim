@@ -48,7 +48,7 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.o$',
   \ }
 
-" Color parantheses differently.
+" Color parentheses differently.
 autocmd VimEnter * RainbowParenthesesToggle
 autocmd Syntax * RainbowParenthesesLoadRound
 autocmd Syntax * RainbowParenthesesLoadSquare
