@@ -18,7 +18,8 @@ endif
 " Use a light theme with 24bit colors.
 set termguicolors
 set background=dark
-colorscheme PaperColor
+let g:tokyonight_style="night"
+colorscheme tokyonight
 
 " show C function template.
 set showfulltag
