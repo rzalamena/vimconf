@@ -7,15 +7,6 @@ scriptencoding utf-8
 "
 " User Interface.
 "
-if !has("gui_running")
-  " Fix terminal true colors. Don't forget to set your tmux default-terminal
-  " variable to tmux-256color or screen-256color (also works on regular
-  " terminal).
-  set t_8b=[48;2;%lu;%lu;%lum
-  set t_8f=[38;2;%lu;%lu;%lum
-endif
-
-" Use a light theme with 24bit colors.
 if has("termguicolors")
   set termguicolors
 endif
