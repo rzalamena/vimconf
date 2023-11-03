@@ -11,7 +11,7 @@ if has("termguicolors")
   set termguicolors
 endif
 set background=dark
-colorscheme tokyonight-night
+colorscheme tokyonight
 
 " show C function template.
 set showfulltag
