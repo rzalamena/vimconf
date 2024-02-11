@@ -5,6 +5,11 @@
 " Enable spell checking
 set spell
 
+" C editing settings
+autocmd Filetype c setlocal
+	\ cindent cinoptions=:0,Ls noexpandtab tabstop=8 shiftwidth=8
+	\ colorcolumn=80
+
 
 "
 " Aesthetics
