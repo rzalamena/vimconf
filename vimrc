@@ -7,6 +7,16 @@ set spell
 
 
 "
+" Aesthetics
+"
+
+" Increase amount of colors to be displayed if available
+if has('termguicolors')
+  set termguicolors
+endif
+
+
+"
 " Bottom lines customizations
 "
 
