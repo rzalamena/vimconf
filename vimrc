@@ -14,7 +14,7 @@ syntax on
 " C editing settings
 autocmd Filetype c setlocal
 	\ cindent cinoptions=:0,Ls noexpandtab tabstop=8 shiftwidth=8
-	\ colorcolumn=80
+	\ colorcolumn=80,110
 
 let g:c_space_errors=1
 let g:c_syntax_for_h=1
