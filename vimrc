@@ -2,8 +2,14 @@
 " Editing preferences
 "
 
+" Enable file type detection, indentation and plugins
+filetype indent plugin on
+
 " Enable spell checking
 set spell
+
+" Enable syntax highlighting
+syntax on
 
 " C editing settings
 autocmd Filetype c setlocal
@@ -12,6 +18,17 @@ autocmd Filetype c setlocal
 
 let g:c_space_errors=1
 let g:c_syntax_for_h=1
+
+" Remember last position
+autocmd BufReadPost *
+  \ let line = line("'\"")
+  \ | if line >= 1 && line <= line("$") && &filetype !~# 'commit'
+  \      && index(['xxd', 'gitrebase', 'tutor'], &filetype) == -1
+  \ |   execute "normal! g`\""
+  \ | endif
+
+" Start searching while typing
+set incsearch
 
 
 "
@@ -22,6 +39,9 @@ let g:c_syntax_for_h=1
 if has('termguicolors')
   set termguicolors
 endif
+
+" Keep some lines of contexts around the cursor
+set scrolloff=5
 
 
 "
@@ -37,4 +57,4 @@ set showcmd
 set ruler
 
 " Better completion system: show entries and wait for input
-set wildmode=list:longest
+set wildmode=longest:full
