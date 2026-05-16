@@ -32,6 +32,16 @@ set incsearch
 
 
 "
+" cscope shortcuts
+"
+
+" Find definition of word under the cursor
+nnoremap <C-c>sg :cs f g <C-R>=expand("<cword>")<CR><CR>
+" Find all references of word under the cursor
+nnoremap <C-c>ss :cs f s <C-R>=expand("<cword>")<CR><CR>
+
+
+"
 " Aesthetics
 "
 
